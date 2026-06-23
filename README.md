@@ -11,32 +11,35 @@ license.
 ## Dependencies
 
 You will need to install below tools
-
+```
 systemc-2.3.3
 verilator
 Qemu
-
+```
 ## Build and install the tools
 
 systemc-2.3.3
-  https://accellera.org/images/downloads/standards/systemc/systemc-2.3.3.tar.gz
-  install it to /usr/local/systemc-2.3.3
-  $ sudo mkdir /usr/local/systemc-2.3.3
-  $ cd systemc-2.3.3
-  $ configure --prefix=/usr/local/systemc-2.3.3
-  $ make
-  $ sudo make install
-
+```
+https://accellera.org/images/downloads/standards/systemc/systemc-2.3.3.tar.gz
+install it to /usr/local/systemc-2.3.3
+$ sudo mkdir /usr/local/systemc-2.3.3
+$ cd systemc-2.3.3
+$ configure --prefix=/usr/local/systemc-2.3.3
+$ make
+$ sudo make install
+```
 verilator
-  https://github.com/verilator/verilator
-  commit a2874b324a4f765bd4a49542f7f0913a4cf2521d is used for this release
-  Build and install Verilator in a specific directory and add the "bin" diretory to the PATH
-
+```
+https://github.com/verilator/verilator
+commit a2874b324a4f765bd4a49542f7f0913a4cf2521d is used for this release
+Build and install Verilator in a specific directory and add the "bin" diretory to the PATH
+```
 Qemu
-  https://github.com/Xilinx/qemu
-
+```
+https://github.com/Xilinx/qemu
+```
 ## Install Ubuntu virtual machine
-
+```
 $ wget https://cloud-images.ubuntu.com/releases/focal/release-20210125/ubuntu-20.04-server-cloudimg-amd64.img
 $ wget https://cloud-images.ubuntu.com/releases/focal/release-20210125/unpacked/ubuntu-20.04-server-cloudimg-amd64-vmlinuz-generic
 $ wget https://cloud-images.ubuntu.com/releases/focal/release-20210125/unpacked/ubuntu-20.04-server-cloudimg-amd64-initrd-generic
@@ -50,7 +53,7 @@ $ qemu-img resize ~/Downloads/ubuntu-20.04-server-cloudimg-amd64.img 30G
 
 Create a disk image with user-data to be used for starting the cloud
 image.
-
+```
 $ sudo apt-get install cloud-image-utils
 $ cd ~/Downloads
 $ cat >user-data <<EOF
@@ -60,7 +63,7 @@ chpasswd: { expire: False }
 ssh_pwauth: True
 EOF
 $ cloud-localds user-data.img user-data
-
+```
 ## Build the simulator
 
 ```
@@ -127,7 +130,6 @@ LD_LIBRARY_PATH=/usr/local/systemc-2.3.3/lib-linux64/ ./coralnpu-sim unix:/tmp/m
 
 We expect to see something like the following:
 ```
-
         SystemC 2.3.3-Accellera --- May 12 2026 15:15:49
         Copyright (c) 1996-2018 by all Contributors,
         ALL RIGHTS RESERVED
@@ -149,10 +151,7 @@ ssh -p 2225 ubuntu@localhost
 
 ## Build and run the CoralNPU driver
 
-Inside Ubuntu VM
-
-```
-Build the driver
+Build the driver inside Ubuntu VM
 
 ```
 git clone https://github.com/spark2026-sky/CoralNPU-driver
@@ -167,8 +166,16 @@ In the coralnpu directory
 bazel build //examples:coralnpu_v2_hello_world_add_floats
 ```
 
-Then copy the generated elf file to "nfp.elf" in the current directory
+Then copy the generated elf file
+```
 coralnpu/k8-fastbuild-ST-dd8dc713f32d/bin/examples/coralnpu_v2_hello_world_add_floats.elf
+```
+to
+```
+nfp.elf
+```
+in the current directory
+
 
 Run the driver
 
